@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños - Grupo de Life</title>
+
+<style>
+
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#031225;
+    color:white;
+}
+
+/* =========================================================
+   PANTALLAS
+========================================================= */
+
+.pantalla{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+#intro{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle at center, #123c70 0%, #061b38 45%, #020b18 100%);
+    z-index:10;
+}
+
+#cumple{
+    display:none;
+    background:
+        radial-gradient(circle at center, #103d72 0%, #061c3b 42%, #020914 100%);
+    z-index:20;
+}
+
+/* =========================================================
+   DECORACIÓN DE FONDO
+========================================================= */
+
+.brillo{
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(36,150,255,.15);
+    filter:blur(70px);
+    animation:respirar 4s infinite alternate;
+}
+
+.brillo1{
+    top:-100px;
+    left:-100px;
+}
+
+.brillo2{
+    right:-100px;
+    bottom:-100px;
+    background:rgba(255,194,35,.12);
+}
+
+@keyframes respirar{
+    from{transform:scale(.9);opacity:.5;}
+    to{transform:scale(1.2);opacity:1;}
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo{
+    position:absolute;
+    top:30px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:30;
+    text-align:center;
+}
+
+.logo img{
+    max-width:190px;
+    max-height:65px;
+    object-fit:contain;
+}
+
+.logo-text{
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:-1px;
+}
+
+.logo-text span{
+    color:#f2c230;
+}
+
+/* =========================================================
+   TEXTO INTRO
+========================================================= */
+
+.intro-titulo{
+    position:relative;
+    z-index:5;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.intro-titulo small{
+    display:block;
+    font-size:18px;
+    letter-spacing:3px;
+    color:#fff;
+    margin-bottom:8px;
+}
+
+.intro-titulo h1{
+    font-size:clamp(35px,8vw,65px);
+    color:#f5ca36;
+    font-style:italic;
+    text-shadow:0 0 25px rgba(255,205,50,.5);
+}
+
+/* =========================================================
+   REGALO
+========================================================= */
+
+.regalo{
+    position:relative;
+    width:190px;
+    height:170px;
+    margin-top:10px;
+    animation:flotar 2.5s ease-in-out infinite;
+}
+
+.caja{
+    position:absolute;
+    left:15px;
+    bottom:0;
+    width:160px;
+    height:105px;
+    background:linear-gradient(135deg,#0754a2,#062d61);
+    border:3px solid #1d78d4;
+    border-radius:5px;
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.45),
+        inset 0 0 20px rgba(255,255,255,.08);
+}
+
+.caja::before{
+    content:"";
+    position:absolute;
+    left:65px;
+    top:0;
+    width:30px;
+    height:100%;
+    background:#f1c232;
+}
+
+.caja::after{
+    content:"";
+    position:absolute;
+    left:0;
+    top:40px;
+    width:100%;
+    height:25px;
+    background:#f1c232;
+}
+
+.tapa{
+    position:absolute;
+    left:5px;
+    top:35px;
+    width:180px;
+    height:35px;
+    border-radius:5px;
+    background:linear-gradient(135deg,#0c64bd,#073873);
+    border:3px solid #2b8de5;
+    z-index:5;
+    transform-origin:center bottom;
+    transition:transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.tapa::after{
+    content:"";
+    position:absolute;
+    left:73px;
+    top:0;
+    width:30px;
+    height:100%;
+    background:#f1c232;
+}
+
+.regalo.abierto .tapa{
+    transform:translateY(-75px) rotate(-10deg);
+}
+
+/* moño */
+
+.moño{
+    position:absolute;
+    left:70px;
+    top:8px;
+    width:55px;
+    height:30px;
+    z-index:8;
+}
+
+.moño::before,
+.moño::after{
+    content:"";
+    position:absolute;
+    width:35px;
+    height:25px;
+    background:#f4ca34;
+    border-radius:50% 50% 10% 50%;
+}
+
+.moño::before{
+    left:-20px;
+    transform:rotate(-25deg);
+}
+
+.moño::after{
+    right:-20px;
+    transform:scaleX(-1) rotate(-25deg);
+}
+
+.moño-centro{
+    position:absolute;
+    left:17px;
+    top:7px;
+    width:22px;
+    height:22px;
+    background:#e8b51f;
+    border-radius:50%;
+    z-index:2;
+}
+
+@keyframes flotar{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+
+/* =========================================================
+   DESTELLOS
+========================================================= */
+
+.destello{
+    position:absolute;
+    width:7px;
+    height:7px;
+    background:#fff;
+    border-radius:50%;
+    box-shadow:0 0 15px 5px #f8cf38;
+    opacity:0;
+}
+
+.destello.d1{top:30%;left:28%;}
+.destello.d2{top:40%;right:27%;}
+.destello.d3{top:55%;left:20%;}
+.destello.d4{top:52%;right:20%;}
+.destello.d5{top:28%;left:42%;}
+.destello.d6{top:35%;right:40%;}
+
+.regalo.abierto ~ .destello{
+    animation:brillar .9s ease-in-out infinite alternate;
+}
+
+@keyframes brillar{
+    from{
+        opacity:0;
+        transform:scale(.3);
+    }
+    to{
+        opacity:1;
+        transform:scale(2);
+    }
+}
+
+/* =========================================================
+   PANTALLA DE CUMPLEAÑOS
+========================================================= */
+
+.contenido-cumple{
+    position:relative;
+    z-index:10;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:90px 20px 30px;
+    text-align:center;
+}
+
+/* mensaje */
+
+.mensaje{
+    animation:entradaMensaje 1.5s ease forwards;
+}
+
+@keyframes entradaMensaje{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.pre{
+    font-size:18px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.feliz{
+    font-size:clamp(42px,10vw,90px);
+    line-height:.95;
+    font-weight:900;
+    color:#fff;
+    text-shadow:
+        0 4px 0 #0754a2,
+        0 0 25px rgba(255,255,255,.3);
+}
+
+.cumpleanos{
+    font-size:clamp(42px,11vw,100px);
+    line-height:1;
+    font-weight:900;
+    color:#f4c52d;
+    font-style:italic;
+    text-shadow:
+        0 4px 0 #a57800,
+        0 0 35px rgba(244,197,45,.45);
+}
+
+.nombre{
+    margin-top:15px;
+    font-size:clamp(25px,5vw,45px);
+    font-weight:bold;
+    color:#55b8ff;
+}
+
+.texto{
+    max-width:720px;
+    margin:20px auto;
+    font-size:clamp(16px,3vw,22px);
+    line-height:1.5;
+    color:#eef6ff;
+}
+
+.texto strong{
+    color:#f5cb32;
+}
+
+/* =========================================================
+   PASTEL
+========================================================= */
+
+.pastel{
+    position:relative;
+    width:180px;
+    height:125px;
+    margin-top:15px;
+    animation:pastelEntrada 1s ease forwards;
+}
+
+@keyframes pastelEntrada{
+    from{
+        opacity:0;
+        transform:translateY(80px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.pastel-cuerpo{
+    position:absolute;
+    bottom:0;
+    left:15px;
+    width:150px;
+    height:70px;
+    border-radius:15px 15px 25px 25px;
+    background:linear-gradient(#fff,#e7e7e7);
+    box-shadow:0 10px 20px rgba(0,0,0,.35);
+}
+
+.pastel-cuerpo::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:22px;
+    border-radius:50%;
+    background:#f7ca32;
+}
+
+.pastel-cuerpo::after{
+    content:"";
+    position:absolute;
+    left:10px;
+    right:10px;
+    bottom:12px;
+    height:8px;
+    background:#0b66bd;
+    border-radius:10px;
+}
+
+.cereza{
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:#f4c22d;
+    border-radius:50%;
+    top:45px;
+}
+
+.c1{left:40px;}
+.c2{left:75px;}
+.c3{right:40px;}
+
+.velas{
+    position:absolute;
+    top:0;
+    left:30px;
+    right:30px;
+    display:flex;
+    justify-content:space-around;
+}
+
+.vela{
+    width:13px;
+    height:40px;
+    background:repeating-linear-gradient(
+        135deg,
+        #0c65b8 0 5px,
+        white 5px 10px
+    );
+    border-radius:4px;
+    position:relative;
+}
+
+.llama{
+    position:absolute;
+    width:15px;
+    height:22px;
+    top:-23px;
+    left:-1px;
+    background:#ffce35;
+    border-radius:50% 50% 50% 10%;
+    transform:rotate(45deg);
+    box-shadow:0 0 15px #ffbd22;
+    animation:llama .5s infinite alternate;
+}
+
+@keyframes llama{
+    from{transform:rotate(40deg) scale(.85);}
+    to{transform:rotate(50deg) scale(1.1);}
+}
+
+/* =========================================================
+   GLOBOS
+========================================================= */
+
+.globo{
+    position:absolute;
+    width:75px;
+    height:95px;
+    border-radius:50% 50% 45% 45%;
+    z-index:3;
+    animation:globo 4s ease-in-out infinite;
+}
+
+.globo::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:92px;
+    width:1px;
+    height:140px;
+    background:rgba(255,255,255,.6);
+}
+
+.azul{
+    background:radial-gradient(circle at 30% 25%,#8dd4ff,#0870c7 55%,#04396d);
+}
+
+.dorado{
+    background:radial-gradient(circle at 30% 25%,#fff2a2,#f4c62f 55%,#a87800);
+}
+
+.blanco{
+    background:radial-gradient(circle at 30% 25%,#fff,#dce7f3 60%,#9baabc);
+}
+
+.g1{left:2%;top:18%;animation-delay:.2s;}
+.g2{left:7%;bottom:10%;animation-delay:1s;}
+.g3{right:3%;top:15%;animation-delay:1.5s;}
+.g4{right:8%;bottom:8%;animation-delay:.6s;}
+.g5{left:13%;top:35%;animation-delay:2s;}
+.g6{right:14%;top:38%;animation-delay:1.2s;}
+
+@keyframes globo{
+    0%,100%{transform:translateY(0) rotate(-3deg);}
+    50%{transform:translateY(-20px) rotate(3deg);}
+}
+
+/* =========================================================
+   CONFETI
+========================================================= */
+
+.confeti{
+    position:absolute;
+    top:-20px;
+    width:10px;
+    height:18px;
+    animation:caer linear infinite;
+    z-index:15;
+}
+
+@keyframes caer{
+    from{
+        transform:translateY(-30px) rotate(0deg);
+    }
+    to{
+        transform:translateY(110vh) rotate(720deg);
+    }
+}
+
+/* =========================================================
+   ESTRELLAS
+========================================================= */
+
+.estrella{
+    position:absolute;
+    color:#fff;
+    font-size:18px;
+    animation:estrella 1.5s ease-in-out infinite alternate;
+    z-index:2;
+}
+
+@keyframes estrella{
+    from{
+        opacity:.2;
+        transform:scale(.6);
+    }
+    to{
+        opacity:1;
+        transform:scale(1.4);
+    }
+}
+
+/* =========================================================
+   FUEGOS ARTIFICIALES
+========================================================= */
+
+.fuego{
+    position:absolute;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    z-index:1;
+}
+
+.fuego::before{
+    content:"";
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:#f6cc35;
+    border-radius:50%;
+    box-shadow:
+        0 -55px 0 #f6cc35,
+        0 55px 0 #f6cc35,
+        55px 0 0 #f6cc35,
+        -55px 0 0 #f6cc35,
+        40px 40px 0 #fff,
+        -40px -40px 0 #fff,
+        40px -40px 0 #fff,
+        -40px 40px 0 #fff;
+    animation:explosion 2s infinite;
+}
+
+.fuego1{
+    left:15%;
+    top:22%;
+}
+
+.fuego2{
+    right:15%;
+    top:25%;
+}
+
+.fuego3{
+    right:28%;
+    bottom:20%;
+}
+
+@keyframes explosion{
+    0%{
+        transform:scale(.2);
+        opacity:0;
+    }
+    30%{
+        transform:scale(1);
+        opacity:1;
+    }
+    100%{
+        transform:scale(1.5);
+        opacity:0;
+    }
+}
+
+/* =========================================================
+   BOTÓN DE MÚSICA
+========================================================= */
+
+.musica{
+    position:absolute;
+    right:20px;
+    bottom:20px;
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    background:#f2c530;
+    color:#06244a;
+    font-size:22px;
+    cursor:pointer;
+    z-index:100;
+    box-shadow:0 5px 20px rgba(0,0,0,.4);
+}
+
+.musica:hover{
+    transform:scale(1.1);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:600px){
+
+    .logo{
+        top:18px;
+    }
+
+    .logo img{
+        max-width:150px;
+    }
+
+    .logo-text{
+        font-size:21px;
+    }
+
+    .intro-titulo{
+        margin-bottom:20px;
+    }
+
+    .regalo{
+        transform:scale(.85);
+    }
+
+    .globo{
+        width:55px;
+        height:72px;
+    }
+
+    .globo::after{
+        top:70px;
+    }
+
+    .g1{left:1%;top:20%;}
+    .g2{left:3%;bottom:5%;}
+    .g3{right:1%;top:20%;}
+    .g4{right:3%;bottom:5%;}
+
+    .contenido-cumple{
+        padding-top:80px;
+    }
+
+    .texto{
+        max-width:90%;
+        margin:12px auto;
+    }
+
+    .pastel{
+        transform:scale(.75);
+        margin-top:0;
+    }
+
+    .fuego1{
+        left:10%;
+    }
+
+    .fuego2{
+        right:10%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     PANTALLA DE INTRODUCCIÓN
+====================================================== -->
+
+<section id="intro" class="pantalla">
+
+    <div class="brillo brillo1"></div>
+    <div class="brillo brillo2"></div>
+
+    <!-- LOGO -->
+    <div class="logo">
+
+        <!--
+        AQUÍ PONES TU LOGO.
+
+        Guarda el logo en la misma carpeta que este HTML
+        y llámalo:
+
+        logo-grupo-life.png
+
+        Si todavía no tienes el archivo, el texto de abajo
+        aparecerá como sustituto.
+        -->
+
+        <img
+            id="logoImagen"
+            src="logo-grupo-life.png"
+            alt="Grupo de Life"
+            onerror="this.style.display='none';document.getElementById('logoTexto').style.display='block';"
+        >
+
+        <div id="logoTexto" class="logo-text" style="display:none;">
+            Grupo de <span>Life</span>
+        </div>
+
+    </div>
+
+    <div class="intro-titulo">
+        <small>Grupo de Life tiene una</small>
+        <h1>✨ sorpresa para ti ✨</h1>
+    </div>
+
+    <!-- REGALO -->
+
+    <div id="regalo" class="regalo">
+
+        <div class="moño">
+            <div class="moño-centro"></div>
+        </div>
+
+        <div class="tapa"></div>
+
+        <div class="caja"></div>
+
+    </div>
+
+    <!-- DESTELLOS -->
+
+    <div class="destello d1"></div>
+    <div class="destello d2"></div>
+    <div class="destello d3"></div>
+    <div class="destello d4"></div>
+    <div class="destello d5"></div>
+    <div class="destello d6"></div>
+
+</section>
+
+
+<!-- =====================================================
+     PANTALLA DE CUMPLEAÑOS
+====================================================== -->
+
+<section id="cumple" class="pantalla">
+
+    <div class="brillo brillo1"></div>
+    <div class="brillo brillo2"></div>
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <img
+            id="logoImagen2"
+            src="logo-grupo-life.png"
+            alt="Grupo de Life"
+            onerror="this.style.display='none';document.getElementById('logoTexto2').style.display='block';"
+        >
+
+        <div id="logoTexto2" class="logo-text" style="display:none;">
+            Grupo de <span>Life</span>
+        </div>
+
+    </div>
+
+
+    <!-- GLOBOS -->
+
+    <div class="globo azul g1"></div>
+    <div class="globo dorado g2"></div>
+    <div class="globo blanco g3"></div>
+    <div class="globo azul g4"></div>
+    <div class="globo dorado g5"></div>
+    <div class="globo blanco g6"></div>
+
+
+    <!-- FUEGOS ARTIFICIALES -->
+
+    <div class="fuego fuego1"></div>
+    <div class="fuego fuego2"></div>
+    <div class="fuego fuego3"></div>
+
+
+    <!-- ESTRELLAS -->
+
+    <div class="estrella" style="left:20%;top:18%;">✦</div>
+    <div class="estrella" style="left:35%;top:10%;animation-delay:.5s;">✧</div>
+    <div class="estrella" style="right:20%;top:17%;animation-delay:.8s;">✦</div>
+    <div class="estrella" style="right:30%;bottom:20%;animation-delay:1s;">✧</div>
+    <div class="estrella" style="left:25%;bottom:25%;animation-delay:.3s;">✦</div>
+
+
+    <!-- CONTENIDO -->
+
+    <div class="contenido-cumple">
+
+        <div class="mensaje">
+
+            <div class="pre">
+                Grupo de Life te desea
+            </div>
+
+            <div class="feliz">
+                ¡FELIZ
+            </div>
+
+            <div class="cumpleanos">
+                CUMPLEAÑOS!
+            </div>
+
+            <!-- =================================================
+                 CAMBIA AQUÍ EL NOMBRE
+            ================================================== -->
+
+            <div class="nombre" id="nombrePersona">
+                Eduardo
+            </div>
+
+            <!-- =================================================
+                 CAMBIA AQUÍ EL MENSAJE
+            ================================================== -->
+
+            <div class="texto">
+                Que este nuevo año de vida esté lleno de
+                <strong>salud, éxito, alegría</strong>
+                y muchos momentos increíbles.
+                <br><br>
+                Gracias por ser parte de
+                <strong>nuestro equipo.</strong>
+            </div>
+
+        </div>
+
+
+        <!-- PASTEL -->
+
+        <div class="pastel">
+
+            <div class="velas">
+
+                <div class="vela">
+                    <div class="llama"></div>
+                </div>
+
+                <div class="vela">
+                    <div class="llama"></div>
+                </div>
+
+                <div class="vela">
+                    <div class="llama"></div>
+                </div>
+
+                <div class="vela">
+                    <div class="llama"></div>
+                </div>
+
+                <div class="vela">
+                    <div class="llama"></div>
+                </div>
+
+            </div>
+
+            <div class="pastel-cuerpo">
+
+                <div class="cereza c1"></div>
+                <div class="cereza c2"></div>
+                <div class="cereza c3"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTÓN DE MÚSICA -->
+
+    <button
+        id="botonMusica"
+        class="musica"
+        type="button"
+        aria-label="Activar o pausar música"
+    >
+        🔊
+    </button>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   CONFIGURACIÓN
+========================================================= */
+
+/*
+    AQUÍ PUEDES CAMBIAR EL NOMBRE
+*/
+
+const NOMBRE_PERSONA = "Eduardo";
+
+
+/*
+    AQUÍ PUEDES CAMBIAR EL TIEMPO
+    ANTES DE MOSTRAR LA FELICITACIÓN.
+
+    4000 = 4 segundos
+    5000 = 5 segundos
+    6000 = 6 segundos
+*/
+
+const TIEMPO_SORPRESA = 4000;
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const intro = document.getElementById("intro");
+const cumple = document.getElementById("cumple");
+const regalo = document.getElementById("regalo");
+const nombre = document.getElementById("nombrePersona");
+const botonMusica = document.getElementById("botonMusica");
+
+
+/* =========================================================
+   NOMBRE
+========================================================= */
+
+nombre.textContent = NOMBRE_PERSONA;
+
+
+/* =========================================================
+   ABRIR REGALO
+========================================================= */
+
+setTimeout(function(){
+
+    regalo.classList.add("abierto");
+
+},1800);
+
+
+/* =========================================================
+   CAMBIAR A LA PANTALLA DE CUMPLEAÑOS
+========================================================= */
+
+setTimeout(function(){
+
+    intro.style.display = "none";
+
+    cumple.style.display = "block";
+
+    crearConfeti();
+
+    iniciarMusica();
+
+},TIEMPO_SORPRESA);
+
+
+/* =========================================================
+   CONFETI
+========================================================= */
+
+function crearConfeti(){
+
+    const colores = [
+        "#f4c62f",
+        "#ffffff",
+        "#1684df",
+        "#58baff"
+    ];
+
+    for(let i=0;i<70;i++){
+
+        const confeti = document.createElement("div");
+
+        confeti.className = "confeti";
+
+        confeti.style.left = Math.random()*100 + "%";
+
+        confeti.style.background =
+            colores[Math.floor(Math.random()*colores.length)];
+
+        confeti.style.animationDuration =
+            (3 + Math.random()*5) + "s";
+
+        confeti.style.animationDelay =
+            (Math.random()*4) + "s";
+
+        confeti.style.transform =
+            "rotate(" + Math.random()*360 + "deg)";
+
+        document.getElementById("cumple").appendChild(confeti);
+    }
+}
+
+
+/* =========================================================
+   MÚSICA GENERADA
+========================================================= */
+
+let audioContext = null;
+let musicaActiva = false;
+let intervaloMusica = null;
+
+
+/*
+    Melodía sencilla de celebración.
+*/
+
+const notas = [
+    523.25,
+    659.25,
+    783.99,
+    659.25,
+    880.00,
+    783.99,
+    659.25,
+    523.25
+];
+
+
+function reproducirNota(frecuencia, duracion){
+
+    if(!audioContext) return;
+
+    const oscilador =
+        audioContext.createOscillator();
+
+    const ganancia =
+        audioContext.createGain();
+
+    oscilador.type = "sine";
+
+    oscilador.frequency.value =
+        frecuencia;
+
+    ganancia.gain.setValueAtTime(
+        0.0001,
+        audioContext.currentTime
+    );
+
+    ganancia.gain.exponentialRampToValueAtTime(
+        0.12,
+        audioContext.currentTime + 0.03
+    );
+
+    ganancia.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime + duracion
+    );
+
+    oscilador.connect(ganancia);
+
+    ganancia.connect(audioContext.destination);
+
+    oscilador.start();
+
+    oscilador.stop(
+        audioContext.currentTime + duracion
+    );
+}
+
+
+function iniciarMusica(){
+
+    if(musicaActiva) return;
+
+    try{
+
+        audioContext =
+            new (window.AudioContext ||
+                 window.webkitAudioContext)();
+
+        musicaActiva = true;
+
+        let i = 0;
+
+        reproducirNota(notas[i],.45);
+
+        intervaloMusica = setInterval(function(){
+
+            i++;
+
+            if(i >= notas.length){
+                i = 0;
+            }
+
+            reproducirNota(notas[i],.45);
+
+        },520);
+
+        botonMusica.textContent = "🔊";
+
+    }catch(error){
+
+        console.log("Audio no disponible");
+
+    }
+}
+
+
+function detenerMusica(){
+
+    if(intervaloMusica){
+
+        clearInterval(intervaloMusica);
+
+        intervaloMusica = null;
+    }
+
+    musicaActiva = false;
+
+    botonMusica.textContent = "🔇";
+}
+
+
+botonMusica.addEventListener("click",function(){
+
+    if(musicaActiva){
+
+        detenerMusica();
+
+    }else{
+
+        iniciarMusica();
+
+    }
+
+});
+
+
+/* =========================================================
+   PRIMER CLICK PARA DESBLOQUEAR AUDIO EN ALGUNOS NAVEGADORES
+========================================================= */
+
+document.addEventListener("click",function(){
+
+    if(!musicaActiva){
+
+        iniciarMusica();
+
+    }
+
+},{once:true});
+
+
+</script>
+
+</body>
+</html>
